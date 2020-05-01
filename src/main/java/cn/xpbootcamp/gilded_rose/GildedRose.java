@@ -16,12 +16,28 @@ public class GildedRose {
     for (Product product : productList) {
       checkQualityRange(product);
 
-      if (!product.getName().equals("Aged Brie") && !product.getName().equals("Sulfuras")) {
+      if (!product.getName().equals("Aged Brie") && !product.getName().equals("Sulfuras")
+      && !product.getName().equals("Backstage pass")) {
         qualityDecreasedByDay(product);
-      } else if (!product.getName().equals("Sulfuras")) {
+      } else if (!product.getName().equals("Sulfuras") && !product.getName().equals("Backstage pass")) {
         qualityIncreasedByDay(product);
+      } else if (product.getName().equals("Backstage pass")) {
+        qualityChangedByDay(product);
       }
     }
+  }
+
+  private void qualityChangedByDay(Product product) {
+    if (product.getSellIn() > 10) {
+      product.setQuality(product.getQuality() + 1);
+    } else if (product.getSellIn() > 5) {
+      product.setQuality(product.getQuality() + 2);
+    } else if (product.getSellIn() > 0) {
+      product.setQuality(product.getQuality() + 3);
+    } else {
+      product.setQuality(0);
+    }
+    product.setSellIn(product.getSellIn() - 1);
   }
 
   private void qualityIncreasedByDay(Product product) {

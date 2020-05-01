@@ -59,4 +59,74 @@ class GildedRoseTest {
     assertEquals("Sulfuras", agedBrie.getName());
     assertEquals(10, agedBrie.getQuality());
   }
+
+  @Test
+  void product_Backstage_quality_increase_when_performance_day_larger_than_ten() {
+    Product backstagePass = Product.builder().name("Backstage pass").sellIn(12).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(backstagePass));
+
+    int day = 1;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
+    }
+
+    assertEquals("Backstage pass", backstagePass.getName());
+    assertEquals(11, backstagePass.getQuality());
+  }
+
+  @Test
+  void product_Backstage_quality_increase_when_performance_day_between_ten_and_five() {
+    Product backstagePass = Product.builder().name("Backstage pass").sellIn(12).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(backstagePass));
+
+    int day = 3;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
+    }
+
+    assertEquals("Backstage pass", backstagePass.getName());
+    assertEquals(14, backstagePass.getQuality());
+  }
+
+  @Test
+  void product_Backstage_quality_increase_when_performance_day_less_than_five() {
+    Product backstagePass = Product.builder().name("Backstage pass").sellIn(12).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(backstagePass));
+
+    int day = 10;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
+    }
+
+    assertEquals("Backstage pass", backstagePass.getName());
+    assertEquals(31, backstagePass.getQuality());
+  }
+
+  @Test
+  void product_Backstage_quality_increase_when_performance_day_equals_zero() {
+    Product backstagePass = Product.builder().name("Backstage pass").sellIn(12).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(backstagePass));
+
+    int day = 12;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
+    }
+
+    assertEquals("Backstage pass", backstagePass.getName());
+    assertEquals(37, backstagePass.getQuality());
+  }
+
+  @Test
+  void product_Backstage_quality_increase_when_performance_day_less_than_zero() {
+    Product backstagePass = Product.builder().name("Backstage pass").sellIn(12).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(backstagePass));
+
+    int day = 13;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
+    }
+
+    assertEquals("Backstage pass", backstagePass.getName());
+    assertEquals(0, backstagePass.getQuality());
+  }
 }
