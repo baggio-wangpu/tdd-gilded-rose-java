@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GildedRoseTest {
@@ -30,10 +30,19 @@ class GildedRoseTest {
 
     gildedRose.updateProductQuality();
 
-    List<Product> productList = gildedRose.getProductList();
+    assertTrue(illegalProduct.getQuality() >=0 && illegalProduct.getQuality() <= 50);
+  }
 
-    for (Product product : productList) {
-      assertTrue(product.getQuality() >=0 && product.getQuality() <= 50);
+  @Test
+  void product_quality_double_drop_when_pass_sellIn() {
+    Product commonProduct = Product.builder().name("Common Product").sellIn(2).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(commonProduct));
+
+    int day = 3;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
     }
+
+    assertEquals(6, commonProduct.getQuality());
   }
 }

@@ -14,11 +14,21 @@ public class GildedRose {
 
   public void updateProductQuality() {
     for (Product product : productList) {
-      if (product.getQuality() < 0) {
-        product.setQuality(0);
-      } else if (product.getQuality() > 50) {
-        product.setQuality(50);
+      checkQualityRange(product);
+      product.setSellIn(product.getSellIn() - 1);
+      if (product.getSellIn() >= 0) {
+        product.setQuality(product.getQuality() - 1);
+      } else {
+        product.setQuality(product.getQuality() - 2);
       }
+    }
+  }
+
+  private void checkQualityRange(Product product) {
+    if (product.getQuality() < 0) {
+      product.setQuality(0);
+    } else if (product.getQuality() > 50) {
+      product.setQuality(50);
     }
   }
 }
