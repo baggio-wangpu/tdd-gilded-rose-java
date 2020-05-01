@@ -45,4 +45,18 @@ class GildedRoseTest {
     assertEquals("Aged Brie", agedBrie.getName());
     assertEquals(11, agedBrie.getQuality());
   }
+
+  @Test
+  void product_Sulfuras_when_days_passed() {
+    Product agedBrie = Product.builder().name("Sulfuras").sellIn(10).quality(10).build();
+    GildedRose gildedRose = new GildedRose(Collections.singletonList(agedBrie));
+
+    int day = 3;
+    for (int i = 0; i < day; i++) {
+      gildedRose.updateProductQuality();
+    }
+
+    assertEquals("Sulfuras", agedBrie.getName());
+    assertEquals(10, agedBrie.getQuality());
+  }
 }

@@ -16,9 +16,9 @@ public class GildedRose {
     for (Product product : productList) {
       checkQualityRange(product);
 
-      if (!product.getName().equals("Aged Brie")) {
+      if (!product.getName().equals("Aged Brie") && !product.getName().equals("Sulfuras")) {
         qualityDecreasedByDay(product);
-      } else {
+      } else if (!product.getName().equals("Sulfuras")) {
         qualityIncreasedByDay(product);
       }
     }
